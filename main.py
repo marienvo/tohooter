@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     # Set the application icon
     app.setWindowIcon(QIcon('icon.png'))
-    app.setApplicationName("qTrace")
+    app.setApplicationName("Trace")
 
 
     engine = QQmlApplicationEngine()

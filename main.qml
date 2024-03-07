@@ -7,12 +7,14 @@ ApplicationWindow {
     height: 480
     minimumWidth: 400
     minimumHeight: 300
-    title: "Responsive Fields"
+    color: "#f2f2f2"
 
     Column {
         spacing: 10
         width: parent.width - 20 // Subtract some amount for padding
-        anchors.centerIn: parent
+        anchors.topMargin: 64
+        anchors.leftMargin: 10
+        anchors.rightMargin: 10
 
         TextField {
             width: parent.width // Make the TextField take the full width of the Column
