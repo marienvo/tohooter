@@ -18,9 +18,32 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.right: parent.right
 
+            Repeater {
+                model: todo_manager.todoModel
+                delegate: Row {
+                    spacing: 10
+
+                    Text {
+                        text: display
+                        color: done ? "green" : "black"
+                        font.strikeout: done
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                done = !done;
+                            }
+                        }
+                    }
+
+                    Text {
+                        text: "(From Note: " + note + ")"
+                    }
+                }
+            }
+
             TextField {
                 width: parent.width // Make the TextField take the full width of the Column
-                placeholderText: "Enter some text TEST..."
+                placeholderText: "Enter some text..."
                 // Add some padding if needed
                 leftPadding: 10
                 rightPadding: 10
@@ -29,7 +52,7 @@ ApplicationWindow {
 
             TextField {
                 width: parent.width // Make the TextField take the full width of the Column
-                placeholderText: "Enter more text..."
+                placeholderText: "Enter note..."
                 // Add some padding if needed
                 leftPadding: 10
                 rightPadding: 10
@@ -38,10 +61,12 @@ ApplicationWindow {
 
             Button {
                 width: parent.width // Optional: Make the Button take the full width of the Column
-                text: "Click me"
+                text: "Add Todo"
                 onClicked: {
-                    console.log("TextField1 says:", textField1.text)
-                    console.log("TextField2 says:", textField2.text)
+                    console.info(todo_manager.addTodo)
+                    todo_manager.addTodo(textField1.text, textField2.text);
+                    textField1.text = "";
+                    textField2.text = "";
                 }
             }
         }
