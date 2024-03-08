@@ -5,15 +5,15 @@ from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtQml import QQmlApplicationEngine
 
+# Todo: remember window position?
+# Todo: save and load settings from ~/Notes/todo.settings
+
 def main():
     app = QApplication(sys.argv)
-
-    app.setWindowIcon(QIcon('icon.png'))
-    app.setApplicationName("TraceTab")
-
-    # Add splash screen - somehow not working in build?
     splash = QSplashScreen(QPixmap('splash.png'), Qt.WindowStaysOnTopHint)
     splash.show()
+    app.setWindowIcon(QIcon('icon.png'))
+    app.setApplicationName("TraceTab")
 
     engine = QQmlApplicationEngine()
 
