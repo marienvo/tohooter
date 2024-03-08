@@ -2,7 +2,7 @@ import logging
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import QTimer, QUrl, QObject, Slot
+from PySide6.QtCore import QTimer, QUrl, QObject, Slot, Signal
 from PySide6.QtGui import QIcon, QSurfaceFormat
 from PySide6.QtQml import QQmlApplicationEngine
 
@@ -15,17 +15,28 @@ logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 
 
 class TodoManager(QObject):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.todoModel = [{'display': "sdf", 'done': False, "note":'sdfdf'}]
+    todoModelChanged = Signal()
+
+    def __init__(self):
+        super().__init__()
+        self._todoModel = [{'display': "Initial item", 'done': False, "note":'sdfdf'}]
+
+    @property
+    def todoModel(self):
+        return self._todoModel
+
+    @todoModel.setter
+    def todoModel(self, value):
+        self._todoModel = value
+        self.todoModelChanged.emit()
 
     @Slot(str, str)
     def addTodo(self, display_text, note_text):
-        logging.info('sdfsdfsdfsdfsdf'+display_text+ note_text)
-        self.todoModel.append({"display": display_text, "done": False, "note": note_text})
+        logging.info('Want to add: '+display_text+' '+ note_text)
+        self._todoModel.append({"display": display_text, "done": False, "note": note_text})
+        self.todoModel = self._todoModel
 
 
-todo_manager = TodoManager()
 
 
 def app_loader(app, splash, app_name, organization_name):
@@ -34,23 +45,24 @@ def app_loader(app, splash, app_name, organization_name):
     app.setOrganizationName(organization_name)
     app.setOrganizationDomain("marienvanoverbeek.nl")
 
-    engine = QQmlApplicationEngine()
-    engine.rootContext().setContextProperty("todo_manager", todo_manager)
-    engine.rootContext().setContextProperty("addTodo", todo_manager.addTodo) # why do I need this??
-    engine.rootContext().setContextProperty("todoModel", todo_manager.todoModel) # why do I need this??
     pos, size = load_settings(app_name, organization_name)
 
+    todo_manager = TodoManager()  # Create TodoManager instance
+
+    engine = QQmlApplicationEngine()
+    engine.rootContext().setContextProperty("todo_manager", todo_manager)
+
+    # Define the open_window function
     def open_window():
         application_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent))
         qml_file = application_path / "main.qml"
+        engine.load(QUrl.fromLocalFile(qml_file))
 
         # Set the surface format before creating the application
         format = QSurfaceFormat()
         format.setSwapInterval(0)
         format.setRenderableType(QSurfaceFormat.OpenGL)
         QSurfaceFormat.setDefaultFormat(format)
-
-        engine.load(QUrl.fromLocalFile(qml_file))
 
         if not engine.rootObjects():
             sys.exit(-1)
@@ -69,4 +81,5 @@ def app_loader(app, splash, app_name, organization_name):
         item.closing.connect(lambda: save_settings(app_name, organization_name, item))
         splash.hide()
 
-    QTimer.singleShot(1000, open_window)
+    # Delay the loading of the QML file until after the todoModel is set
+    todo_manager.todoModelChanged.connect(open_window)

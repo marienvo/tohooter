@@ -8,6 +8,14 @@ ApplicationWindow {
     minimumWidth: 400
     minimumHeight: 300
     color: "#f2f2f2"
+    Connections {
+        target: todo_manager
+        function onTodoModelChanged() {
+            // Handle model updates here
+            console.log("Todo model changed:", todo_manager.todoModel[0])
+            console.log("Todo model changed:", todo_manager.todoModel[1])
+        }
+    }
 
     Item {
         anchors.fill: parent
@@ -49,7 +57,7 @@ ApplicationWindow {
             Column {
                 spacing: 10
                 Repeater {
-                    model: todoModel // FIXME: not getting updated when changed
+                    model: todo_manager.todoModel // FIXME: not getting updated when changed
                     // model: todo_manager.todoModel // FIXME: this doesn't work
                     delegate: Row {
                         spacing: 10
