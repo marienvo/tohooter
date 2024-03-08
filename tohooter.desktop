@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Tohooter
-Exec=/home/marienvanoverbeek/git/qt/tracetab/dist/main
+Exec=/home/marienvanoverbeek/git/qt/tracetab/dist/Tohooter
 Path=/home/marienvanoverbeek/git/qt/tracetab
 Icon=/home/marienvanoverbeek/git/qt/tracetab/icon.png
 Terminal=false
