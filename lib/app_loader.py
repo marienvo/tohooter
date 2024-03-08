@@ -18,7 +18,10 @@ def app_loader(app, splash, app_name, organization_name):
     engine = QQmlApplicationEngine()
     pos, size = load_settings(app_name, organization_name)
 
-    def load_and_hide():
+    # Do all the heavy lifting
+    # ...
+
+    def open_window():
         application_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent))
         qml_file = application_path / "main.qml"
         engine.load(qml_file)
@@ -36,4 +39,4 @@ def app_loader(app, splash, app_name, organization_name):
         window.closing.connect(lambda: save_settings(app_name, organization_name, window))
         splash.hide()
 
-    QTimer.singleShot(1000, load_and_hide)
+    QTimer.singleShot(1000, open_window)
