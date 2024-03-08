@@ -7,39 +7,42 @@ ApplicationWindow {
     height: 480
     minimumWidth: 400
     minimumHeight: 300
-    color: "#f2f2f2"
+    color: "#ff0000"
 
-    Column {
-        spacing: 10
-        width: parent.width - 20 // Subtract some amount for padding
-        anchors.topMargin: 64
-        anchors.leftMargin: 10
-        anchors.rightMargin: 10
+    Item {
+        anchors.fill: parent
+        anchors.margins: 20 // Adjust the margin as needed
+        Column {
+            spacing: 10
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
 
-        TextField {
-            width: parent.width // Make the TextField take the full width of the Column
-            placeholderText: "Enter some text TEST..."
-            // Add some padding if needed
-            leftPadding: 10
-            rightPadding: 10
-            id: textField1
-        }
+            TextField {
+                width: parent.width // Make the TextField take the full width of the Column
+                placeholderText: "Enter some text TEST..."
+                // Add some padding if needed
+                leftPadding: 10
+                rightPadding: 10
+                id: textField1
+            }
 
-        TextField {
-            width: parent.width // Make the TextField take the full width of the Column
-            placeholderText: "Enter more text..."
-            // Add some padding if needed
-            leftPadding: 10
-            rightPadding: 10
-            id: textField2
-        }
+            TextField {
+                width: parent.width // Make the TextField take the full width of the Column
+                placeholderText: "Enter more text..."
+                // Add some padding if needed
+                leftPadding: 10
+                rightPadding: 10
+                id: textField2
+            }
 
-        Button {
-            width: parent.width // Optional: Make the Button take the full width of the Column
-            text: "Click me"
-            onClicked: {
-                console.log("TextField1 says:", textField1.text)
-                console.log("TextField2 says:", textField2.text)
+            Button {
+                width: parent.width // Optional: Make the Button take the full width of the Column
+                text: "Click me"
+                onClicked: {
+                    console.log("TextField1 says:", textField1.text)
+                    console.log("TextField2 says:", textField2.text)
+                }
             }
         }
     }
