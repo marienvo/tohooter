@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 
 
 class TodoManager(QObject):
-    todoModelChanged = Signal()
+    todoModelChanged = Signal(name="modelsChanged")
 
     def __init__(self):
         super().__init__()
@@ -28,13 +28,14 @@ class TodoManager(QObject):
     @todoModel.setter
     def todoModel(self, value):
         self._todoModel = value
-        self.todoModelChanged.emit()
 
     @Slot(str, str)
     def addTodo(self, display_text, note_text):
         logging.info('Want to add: '+display_text+' '+ note_text)
         self._todoModel.append({"display": display_text, "done": False, "note": note_text})
         self.todoModel = self._todoModel
+        self.todoModelChanged.emit()
+        logging.info(self.todoModel[1])
 
 
 
@@ -45,17 +46,31 @@ def app_loader(app, splash, app_name, organization_name):
     app.setOrganizationName(organization_name)
     app.setOrganizationDomain("marienvanoverbeek.nl")
 
-    pos, size = load_settings(app_name, organization_name)
-
-    todo_manager = TodoManager()  # Create TodoManager instance
 
     engine = QQmlApplicationEngine()
-    engine.rootContext().setContextProperty("todo_manager", todo_manager)
+
 
     # Define the open_window function
     def open_window():
+        pos, size = load_settings(app_name, organization_name)
         application_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent))
         qml_file = application_path / "main.qml"
+        todo_manager = TodoManager()
+
+        @Slot()
+        def updateTodoModelContext():
+            engine.rootContext().setContextProperty("todoModel", todo_manager.todoModel)
+        @Slot()
+        def updateAddTodoContext():
+            engine.rootContext().setContextProperty("addTodo", todo_manager.addTodo)
+
+        todo_manager.todoModelChanged.connect(updateTodoModelContext)
+        todo_manager.todoModelChanged.connect(updateAddTodoContext)
+
+        engine.rootContext().setContextProperty("todo_manager", todo_manager)
+        engine.rootContext().setContextProperty("addTodo", todo_manager.addTodo) # FIXME: not sure why this is needed
+        engine.rootContext().setContextProperty("todoModel", todo_manager.todoModel)
+
         engine.load(QUrl.fromLocalFile(qml_file))
 
         # Set the surface format before creating the application
@@ -81,5 +96,4 @@ def app_loader(app, splash, app_name, organization_name):
         item.closing.connect(lambda: save_settings(app_name, organization_name, item))
         splash.hide()
 
-    # Delay the loading of the QML file until after the todoModel is set
-    todo_manager.todoModelChanged.connect(open_window)
+    QTimer.singleShot(10, open_window)
