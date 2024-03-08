@@ -18,7 +18,7 @@ ApplicationWindow {
 
         TextField {
             width: parent.width // Make the TextField take the full width of the Column
-            placeholderText: "Enter some text..."
+            placeholderText: "Enter some text TEST..."
             // Add some padding if needed
             leftPadding: 10
             rightPadding: 10

@@ -11,8 +11,7 @@ def main():
     app.setWindowIcon(QIcon('icon.png'))
     app.setApplicationName("TraceTab")
 
-    splash_img = QPixmap('splash.png')
-    splash = QSplashScreen(splash_img, Qt.WindowStaysOnTopHint)
+    splash = QSplashScreen(QPixmap('splash.png'), Qt.WindowStaysOnTopHint)
     splash.show()
 
     engine = QQmlApplicationEngine()
