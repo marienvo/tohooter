@@ -18,7 +18,8 @@ def app_loader(app, splash, app_name, organization_name):
     pos, size = load_settings(app_name, organization_name)
 
     def load_and_hide():
-        qml_file = Path(__file__).resolve().parent / "../main.qml"
+        application_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent))
+        qml_file = application_path / "main.qml"
         engine.load(qml_file)
         if not engine.rootObjects():
             sys.exit(-1)
