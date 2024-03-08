@@ -11,6 +11,7 @@ def main():
     app.setWindowIcon(QIcon('icon.png'))
     app.setApplicationName("TraceTab")
 
+    # Add splash screen - somehow not working in build?
     splash = QSplashScreen(QPixmap('splash.png'), Qt.WindowStaysOnTopHint)
     splash.show()
 
