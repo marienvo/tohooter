@@ -2,6 +2,7 @@
 Type=Application
 Name=TraceTab
 Exec=/home/marienvanoverbeek/git/qt/tracetab/dist/main
+Path=/home/marienvanoverbeek/git/qt/tracetab
 Icon=/home/marienvanoverbeek/git/qt/tracetab/icon.png
 Terminal=false
 Categories=Utility;
