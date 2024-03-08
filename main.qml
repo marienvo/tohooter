@@ -11,49 +11,25 @@ ApplicationWindow {
 
     Item {
         anchors.fill: parent
-        anchors.margins: 20 // Adjust the margin as needed
+        anchors.margins: 20
         Column {
             spacing: 10
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
 
-            Repeater {
-                model: todo_manager.todoModel
-                delegate: Row {
-                    spacing: 10
-
-                    Text {
-                        text: display
-                        color: done ? "green" : "black"
-                        font.strikeout: done
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                done = !done;
-                            }
-                        }
-                    }
-
-                    Text {
-                        text: "(From Note: " + note + ")"
-                    }
-                }
-            }
 
             TextField {
-                width: parent.width // Make the TextField take the full width of the Column
+                width: parent.width
                 placeholderText: "Enter some text..."
-                // Add some padding if needed
                 leftPadding: 10
                 rightPadding: 10
                 id: textField1
             }
 
             TextField {
-                width: parent.width // Make the TextField take the full width of the Column
+                width: parent.width
                 placeholderText: "Enter note..."
-                // Add some padding if needed
                 leftPadding: 10
                 rightPadding: 10
                 id: textField2
@@ -63,10 +39,35 @@ ApplicationWindow {
                 width: parent.width // Optional: Make the Button take the full width of the Column
                 text: "Add Todo"
                 onClicked: {
-                    console.info(todo_manager.addTodo)
+                    // addTodo(textField1.text, textField2.text); // FIXME: this doesn't work
                     todo_manager.addTodo(textField1.text, textField2.text);
                     textField1.text = "";
                     textField2.text = "";
+                }
+            }
+
+            Column {
+                spacing: 10
+                Repeater {
+                    model: todoModel // FIXME: not getting updated when changed
+                    // model: todo_manager.todoModel // FIXME: this doesn't work
+                    delegate: Row {
+                        spacing: 10
+                        Text {
+                            text: modelData.display
+                            color: "black"
+                            font.strikeout: modelData.done
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    modelData.done = !modelData.done;
+                                }
+                            }
+                        }
+                        Text {
+                            text: "(From Note: " + modelData.note + ")"
+                        }
+                    }
                 }
             }
         }

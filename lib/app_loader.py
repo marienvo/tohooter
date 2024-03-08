@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 class TodoManager(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.todoModel = []
+        self.todoModel = [{'display': "sdf", 'done': False, "note":'sdfdf'}]
 
     @Slot(str, str)
     def addTodo(self, display_text, note_text):
@@ -25,6 +25,7 @@ class TodoManager(QObject):
         self.todoModel.append({"display": display_text, "done": False, "note": note_text})
 
 
+todo_manager = TodoManager()
 
 
 def app_loader(app, splash, app_name, organization_name):
@@ -34,10 +35,9 @@ def app_loader(app, splash, app_name, organization_name):
     app.setOrganizationDomain("marienvanoverbeek.nl")
 
     engine = QQmlApplicationEngine()
-    todo_manager = TodoManager()
     engine.rootContext().setContextProperty("todo_manager", todo_manager)
-    engine.rootContext().setContextProperty("addTodo", todo_manager.addTodo)
-    engine.rootContext().setContextProperty("todoModel", todo_manager.todoModel)
+    engine.rootContext().setContextProperty("addTodo", todo_manager.addTodo) # why do I need this??
+    engine.rootContext().setContextProperty("todoModel", todo_manager.todoModel) # why do I need this??
     pos, size = load_settings(app_name, organization_name)
 
     def open_window():
