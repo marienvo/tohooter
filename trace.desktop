@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=Trace
-Exec=/home/marienvanoverbeek/git/qt/trace/dist/main
-Icon=/home/marienvanoverbeek/git/qt/trace/icon.png
+Name=TraceTab
+Exec=/home/marienvanoverbeek/git/qt/tracetab/dist/main
+Icon=/home/marienvanoverbeek/git/qt/tracetab/icon.png
 Terminal=false
 Categories=Utility;
