@@ -38,17 +38,13 @@ class TodoManager(QObject):
         logging.info(self.todoModel[1])
 
 
-
-
 def app_loader(app, splash, app_name, organization_name):
     app.setWindowIcon(QIcon('icon.png'))
     app.setApplicationName(app_name)
     app.setOrganizationName(organization_name)
     app.setOrganizationDomain("marienvanoverbeek.nl")
 
-
     engine = QQmlApplicationEngine()
-
 
     # Define the open_window function
     def open_window():
@@ -57,20 +53,17 @@ def app_loader(app, splash, app_name, organization_name):
         qml_file = application_path / "main.qml"
         todo_manager = TodoManager()
 
+        # Make sure methods from the class are available within QML (like addTodo):
+        engine.rootContext().setContextProperty("todo_manager", todo_manager)
+
+        # Make sure the live todoModel is shared with the QML so show the latest data:
         @Slot()
         def updateTodoModelContext():
             engine.rootContext().setContextProperty("todoModel", todo_manager.todoModel)
-        @Slot()
-        def updateAddTodoContext():
-            engine.rootContext().setContextProperty("addTodo", todo_manager.addTodo)
-
         todo_manager.todoModelChanged.connect(updateTodoModelContext)
-        todo_manager.todoModelChanged.connect(updateAddTodoContext)
-
-        engine.rootContext().setContextProperty("todo_manager", todo_manager)
-        engine.rootContext().setContextProperty("addTodo", todo_manager.addTodo) # FIXME: not sure why this is needed
         engine.rootContext().setContextProperty("todoModel", todo_manager.todoModel)
 
+        # Now load the QML:
         engine.load(QUrl.fromLocalFile(qml_file))
 
         # Set the surface format before creating the application
@@ -96,4 +89,4 @@ def app_loader(app, splash, app_name, organization_name):
         item.closing.connect(lambda: save_settings(app_name, organization_name, item))
         splash.hide()
 
-    QTimer.singleShot(10, open_window)
+    QTimer.singleShot(1000, open_window)

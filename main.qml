@@ -36,7 +36,7 @@ ApplicationWindow {
             }
 
             Button {
-                width: parent.width // Optional: Make the Button take the full width of the Column
+                width: parent.width
                 text: "Add Todo"
                 onClicked: {
                     todo_manager.addTodo(textField1.text, textField2.text);
