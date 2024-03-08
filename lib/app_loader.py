@@ -6,6 +6,7 @@ from PySide6.QtGui import  QIcon
 from PySide6.QtQml import QQmlApplicationEngine
 from lib.settings_manager import load_settings, save_settings
 
+# Todo: set ~/Notes/todo.settings string via settings_manager, save and read rest of settings in settings file:
 # Todo: save and load settings from ~/Notes/todo.settings
 
 def app_loader(app, splash, app_name, organization_name):
