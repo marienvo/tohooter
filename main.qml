@@ -7,7 +7,7 @@ ApplicationWindow {
     height: 480
     minimumWidth: 400
     minimumHeight: 300
-    color: "#ff0000"
+    color: "#f2f2f2"
 
     Item {
         anchors.fill: parent
