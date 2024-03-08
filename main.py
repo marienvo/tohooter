@@ -10,7 +10,7 @@ def main():
     app = QApplication(sys.argv)
     splash = QSplashScreen(QPixmap('splash.png'), Qt.WindowStaysOnTopHint)
     splash.show()
-    app_loader(app, splash, "TraceTab", "marienvo")
+    app_loader(app, splash, "Todohoot", "marienvo")
     sys.exit(app.exec())
 
 if __name__ == "__main__":

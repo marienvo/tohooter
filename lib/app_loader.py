@@ -42,8 +42,9 @@ def app_loader(app, splash, app_name, organization_name):
         item = engine.rootObjects()[0]
 
         # Apply saved settings
-        item.setProperty("x", pos.x())
-        item.setProperty("y", pos.y())
+        if pos is not None:
+            item.setProperty("x", pos.x())
+            item.setProperty("y", pos.y())
         item.setProperty("width", size.width())
         item.setProperty("height", size.height())
 
