@@ -9,6 +9,11 @@ ApplicationWindow {
     minimumHeight: 300
     color: "#f2f2f2"
 
+    onClosing: {
+        // todo: somehow make the app keep running in the background for showing notifications?
+        console.log("Close button pressed, but window will not close.");
+    }
+
     Item {
         anchors.fill: parent
         anchors.margins: 20
