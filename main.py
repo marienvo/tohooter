@@ -6,7 +6,7 @@ from lib.splash import create_splash
 
 def main():
     app = QApplication(sys.argv)
-    splash = create_splash()
+    splash = create_splash("Tohooter 0.0.0", "Target to shoot? Owl will hoot", "Tohooter is distributed under the GNU General Public License (GPL) version 3")
     splash.show()
 
     # Load the main application

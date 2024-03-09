@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QSplashScreen
 from PySide6.QtGui import QPixmap, QFont, QPainter, QColor, QPen
 from PySide6.QtCore import Qt
 
-def layout_and_paint(splash, pixmap, title, subtitle):
+def layout_and_paint(splash, pixmap, title, subtitle, details):
     # Set up the painter
     painter = QPainter(pixmap)
     painter.setRenderHint(QPainter.Antialiasing)
@@ -20,6 +20,11 @@ def layout_and_paint(splash, pixmap, title, subtitle):
     subtitle_font_size = 16
     subtitle_font = QFont()
     subtitle_font.setPointSize(subtitle_font_size)
+
+    # Set the font size and font for the additional text
+    additional_text_font_size = 12
+    additional_text_font = QFont()
+    additional_text_font.setPointSize(additional_text_font_size)
 
     # Set the main text color
     text_color = QColor(Qt.white)
@@ -58,10 +63,17 @@ def layout_and_paint(splash, pixmap, title, subtitle):
     text_rect = pixmap.rect().adjusted(20, 60, 0, -pixmap.height() // 2)
     painter.drawText(text_rect, Qt.AlignTop | Qt.AlignLeft, subtitle)
 
+    # Draw the additional text at the bottom left
+    additional_text = details
+    additional_text_font.setPointSize(additional_text_font_size)  # Adjust font size for the additional text
+    painter.setFont(additional_text_font)
+    text_rect = pixmap.rect().adjusted(20, pixmap.height() - 20 - additional_text_font_size, 0, 0)
+    painter.drawText(text_rect, Qt.AlignTop | Qt.AlignLeft, additional_text)
+
     # End painting
     painter.end()
 
-def create_splash(title, subtitle):
+def create_splash(title, subtitle, details):
     # Create the splash screen instance with the image
     splash = QSplashScreen(QPixmap('splash.png'), Qt.WindowStaysOnTopHint)
 
@@ -69,8 +81,8 @@ def create_splash(title, subtitle):
     pixmap = QPixmap(splash.size())
     pixmap.fill(Qt.transparent)
 
-    # Layout and paint the title and subtitle
-    layout_and_paint(splash, pixmap, title, subtitle)
+    # Layout and paint the title, subtitle, and additional text
+    layout_and_paint(splash, pixmap, title, subtitle, details)
 
     # Set the pixmap with both lines of text and the background image as the splash screen
     splash.setPixmap(pixmap)
