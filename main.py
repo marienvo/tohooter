@@ -1,15 +1,15 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QSplashScreen
-from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Qt
-
+from PySide6.QtWidgets import QApplication
 from lib.app_loader import app_loader
+from lib.splash import create_splash
 
 def main():
     app = QApplication(sys.argv)
-    splash = QSplashScreen(QPixmap('splash.png'), Qt.WindowStaysOnTopHint)
+    splash = create_splash()
     splash.show()
+
+    # Load the main application
     app_loader(app, splash, "Tohooter", "marienvo")
     sys.exit(app.exec())
 
