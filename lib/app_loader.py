@@ -2,13 +2,14 @@ import logging
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import QTimer, QUrl, QObject, Slot, Signal
+from PySide6.QtCore import QTimer, QUrl, QObject, Slot, Signal, QCoreApplication
 from PySide6.QtGui import QIcon, QSurfaceFormat
 from PySide6.QtQml import QQmlApplicationEngine
 
 from lib.settings_manager import load_settings, save_settings
 
 logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
+
 
 # Todo: set ~/Notes/todo.settings string via settings_manager, save and read rest of settings in settings file:
 # Todo: save and load settings from ~/Notes/todo.settings
@@ -19,7 +20,7 @@ class TodoManager(QObject):
 
     def __init__(self):
         super().__init__()
-        self._todoModel = [{'display': "Initial item", 'done': False, "note":'sdfdf'}]
+        self._todoModel = [{'display': "Initial item", 'done': False, "note": 'sdfdf'}]
 
     @property
     def todoModel(self):
@@ -29,9 +30,14 @@ class TodoManager(QObject):
     def todoModel(self, value):
         self._todoModel = value
 
+    @Slot()
+    def close_app(self):
+        logging.info('close app')
+        QCoreApplication.quit()
+
     @Slot(str, str)
     def addTodo(self, display_text, note_text):
-        logging.info('Want to add: '+display_text+' '+ note_text)
+        logging.info('Want to add: ' + display_text + ' ' + note_text)
         self._todoModel.append({"display": display_text, "done": False, "note": note_text})
         self.todoModel = self._todoModel
         self.todoModelChanged.emit()

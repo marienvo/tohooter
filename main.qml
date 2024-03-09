@@ -44,6 +44,12 @@ ApplicationWindow {
                     textField2.text = "";
                 }
             }
+            
+            Button {
+                width: parent.width
+                text: "Exit app"
+                onClicked: todo_manager.close_app()
+            }
 
             Column {
                 spacing: 10
