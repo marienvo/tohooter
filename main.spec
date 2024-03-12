@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('main.qml', '.'),('icon.png', '.'),('splash.png', '.')],
+    datas=[('ui/main.qml', './ui'),('icon.png', '.'),('splash.png', '.')],
     hiddenimports=[],
     hookspath=['.'],
     hooksconfig={},

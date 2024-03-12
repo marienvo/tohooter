@@ -56,7 +56,7 @@ def app_loader(app, splash, app_name, organization_name):
     def open_window():
         pos, size = load_settings(app_name, organization_name)
         application_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent))
-        qml_file = application_path / "main.qml"
+        qml_file = application_path / "ui/main.qml"
         todo_manager = TodoManager()
 
         # Make sure methods from the class are available within QML (like addTodo):

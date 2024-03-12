@@ -1,6 +1,6 @@
 {
     "files": [
         "main.py",
-        "main.qml"
+        "ui/main.qml"
     ]
 }
