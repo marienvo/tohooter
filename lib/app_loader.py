@@ -20,7 +20,7 @@ class TodoManager(QObject):
 
     def __init__(self):
         super().__init__()
-        self._todoModel = [{'display': "Initial item", 'done': False, "note": 'sdfdf'}]
+        self._todoModel = [{'display': "Initial item 123", 'done': False, "note": 'sdfdf'}]
 
     @property
     def todoModel(self):
