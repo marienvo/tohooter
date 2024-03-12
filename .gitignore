@@ -76,3 +76,4 @@ CMakeLists.txt.user*
 /venv
 /dist
 /build
+/node_modules

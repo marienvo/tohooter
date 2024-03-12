@@ -7,11 +7,11 @@ ApplicationWindow {
     height: 480
     minimumWidth: 400
     minimumHeight: 300
-    color: "#f2f2f2"
+    color: '#f2f2f2'
 
     onClosing: {
         // todo: somehow make the app keep running in the background for showing notifications?
-        console.log("Close button pressed, but window will not close.");
+        console.log('Close button pressed, but window will not close.');
     }
 
     Item {
@@ -23,10 +23,9 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.right: parent.right
 
-
             TextField {
                 width: parent.width
-                placeholderText: "Enter some text..."
+                placeholderText: 'Enter some text...'
                 leftPadding: 10
                 rightPadding: 10
                 id: textField1
@@ -34,7 +33,7 @@ ApplicationWindow {
 
             TextField {
                 width: parent.width
-                placeholderText: "Enter note..."
+                placeholderText: 'Enter note...'
                 leftPadding: 10
                 rightPadding: 10
                 id: textField2
@@ -42,17 +41,17 @@ ApplicationWindow {
 
             Button {
                 width: parent.width
-                text: "Add Todo"
+                text: 'Add Todo'
                 onClicked: {
                     todo_manager.addTodo(textField1.text, textField2.text);
-                    textField1.text = "";
-                    textField2.text = "";
+                    textField1.text = '';
+                    textField2.text = '';
                 }
             }
-            
+
             Button {
                 width: parent.width
-                text: "Exit app"
+                text: 'Exit app'
                 onClicked: todo_manager.close_app()
             }
 
@@ -64,7 +63,7 @@ ApplicationWindow {
                         spacing: 10
                         Text {
                             text: modelData.display
-                            color: "black"
+                            color: 'black'
                             font.strikeout: modelData.done
                             MouseArea {
                                 anchors.fill: parent
@@ -74,67 +73,93 @@ ApplicationWindow {
                             }
                         }
                         Text {
-                            text: "(From Note: " + modelData.note + ")"
+                            text: '(From Note: ' + modelData.note + ')'
                         }
                     }
                 }
             }
-Item{
-        Rectangle {
-                id: mainArea
-                anchors.fill: parent
-                color: "white"
-
+            Item {
                 Rectangle {
-                    id: targetArea
-                    width: 200; height: 200
-                    color: "lightblue"
-                    anchors.centerIn: parent
-                }
+                    id: mainArea
+                    anchors.fill: parent
+                    color: 'white'
 
-                Rectangle {
-                    id: draggable
-                    width: 100; height: 100
-                    color: "red"
-                    x: 10; y: 10
-                    property point startPos
+                    Rectangle {
+                        id: targetArea
+                        width: 200
+                        height: 200
+                        color: 'lightblue'
+                        anchors.centerIn: parent
+                    }
 
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        drag.target: parent
+                    Rectangle {
+                        id: draggable
+                        width: 100
+                        height: 100
+                        color: 'red'
+                        x: 10
+                        y: 10
+                        property point startPos
 
-                        onPositionChanged: {
-                            if (mouseArea.drag.active) {
-                                var deltaX = mouseArea.mouseX - mouseArea.width / 2
-                                var deltaY = mouseArea.mouseY - mouseArea.height / 2
-                                draggable.x = Math.max(0, Math.min(mainArea.width - draggable.width, draggable.startX + deltaX))
-                                draggable.y = Math.max(0, Math.min(mainArea.height - draggable.height, draggable.startY + deltaY))
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            drag.target: parent
+
+                            onPositionChanged: {
+                                if (mouseArea.drag.active) {
+                                    var deltaX =
+                                        mouseArea.mouseX - mouseArea.width / 2;
+                                    var deltaY =
+                                        mouseArea.mouseY - mouseArea.height / 2;
+                                    draggable.x = Math.max(
+                                        0,
+                                        Math.min(
+                                            mainArea.width - draggable.width,
+                                            draggable.startX + deltaX
+                                        )
+                                    );
+                                    draggable.y = Math.max(
+                                        0,
+                                        Math.min(
+                                            mainArea.height - draggable.height,
+                                            draggable.startY + deltaY
+                                        )
+                                    );
+                                }
                             }
-                        }
 
-                        onPressed: {
-                            draggable.startPos = Qt.point(draggable.x, draggable.y)
-                            draggable.opacity = 0.5
-                        }
+                            onPressed: {
+                                draggable.startPos = Qt.point(
+                                    draggable.x,
+                                    draggable.y
+                                );
+                                draggable.opacity = 0.5;
+                            }
 
-                        onReleased: {
-                            draggable.opacity = 1.0
-                            // Check if dropped in target area
-                            if (draggable.x >= targetArea.x && draggable.x + draggable.width <= targetArea.x + targetArea.width &&
-                                draggable.y >= targetArea.y && draggable.y + draggable.height <= targetArea.y + targetArea.height) {
-                                console.log("Dropped in target area");
-                                // Optionally, reset position within the target area or perform other actions
-                            } else {
-                                // Reset position if not dropped on target area
-                                draggable.x = draggable.startPos.x
-                                draggable.y = draggable.startPos.y
+                            onReleased: {
+                                draggable.opacity = 1.0;
+                                // Check if dropped in target area
+                                if (
+                                    draggable.x >= targetArea.x &&
+                                    draggable.x + draggable.width <=
+                                        targetArea.x + targetArea.width &&
+                                    draggable.y >= targetArea.y &&
+                                    draggable.y + draggable.height <=
+                                        targetArea.y + targetArea.height
+                                ) {
+                                    console.log('Dropped in target area');
+                                    // Optionally, reset position within the target area or perform other actions
+                                } else {
+                                    // Reset position if not dropped on target area
+                                    draggable.x = draggable.startPos.x;
+                                    draggable.y = draggable.startPos.y;
+                                }
                             }
                         }
                     }
                 }
             }
-    }}
         }
-
+    }
 }

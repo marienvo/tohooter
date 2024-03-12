@@ -1,0 +1,19 @@
+{
+  "name": "tohooter",
+  "version": "0.0.0",
+  "description": "Task manager",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "pytest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prettier": "^1.19.1",
+    "prettier-plugin-qml": "^0.14.0"
+  }
+}
