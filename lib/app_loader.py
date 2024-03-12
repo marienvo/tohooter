@@ -45,7 +45,7 @@ class TodoManager(QObject):
 
 
 def app_loader(app, splash, app_name, organization_name):
-    app.setWindowIcon(QIcon('icon.png'))
+    app.setWindowIcon(QIcon('assets/icon.png'))
     app.setApplicationName(app_name)
     app.setOrganizationName(organization_name)
     app.setOrganizationDomain("marienvanoverbeek.nl")

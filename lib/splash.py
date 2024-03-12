@@ -75,7 +75,7 @@ def layout_and_paint(splash, pixmap, title, subtitle, details):
 
 def create_splash(title, subtitle, details):
     # Create the splash screen instance with the image
-    splash = QSplashScreen(QPixmap('splash.png'), Qt.WindowStaysOnTopHint)
+    splash = QSplashScreen(QPixmap('assets/splash.png'), Qt.WindowStaysOnTopHint)
 
     # Create a pixmap for drawing the text
     pixmap = QPixmap(splash.size())
