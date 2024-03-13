@@ -16,16 +16,31 @@ Rectangle {
         spacing: 10
         anchors.margins: 10
         Button {
-            text: 'Today'
+            text: '📋'
             onClicked: sidebar.ribbonIconClicked('Today')
+            contentItem: Text {
+                text: parent.text
+                color: 'white'
+                anchors.centerIn: parent
+            }
         }
         Button {
-            text: 'Upcoming'
+            text: '🕑'
             onClicked: sidebar.ribbonIconClicked('Upcoming')
+            contentItem: Text {
+                text: parent.text
+                color: 'white'
+                anchors.centerIn: parent
+            }
         }
         Button {
-            text: 'Settings'
+            text: '⚙️'
             onClicked: sidebar.ribbonIconClicked('Settings')
+            contentItem: Text {
+                text: parent.text
+                color: 'white'
+                anchors.centerIn: parent
+            }
         }
     }
 }
