@@ -17,10 +17,23 @@ ApplicationWindow {
     }
 
     Sidebar {
-        // Properties indien nodig
+        id: sidebar
+        onSettingsClicked: currentView = 'Settings.qml'
     }
 
-    Today {
-        // Properties indien nodig
+    Loader {
+        id: contentLoader
+        anchors.fill: parent
+        source: 'Today.qml'
+    }
+
+    Connections {
+        target: sidebar
+        function onSettingsClicked() {
+            contentLoader.source = 'Settings.qml';
+        }
+        function onHomeClicked() {
+            contentLoader.source = 'Today.qml';
+        }
     }
 }

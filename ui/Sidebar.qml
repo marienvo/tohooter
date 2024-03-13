@@ -1,29 +1,25 @@
-// Sidebar.qml
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Rectangle {
-    id: sidebar
-    width: 60 // Breedte van het zijpaneel
+    width: 60
     height: parent.height
-    color: '#333' // Achtergrondkleur van het zijpaneel
+    color: '#333'
+
+    signal settingsClicked
+    signal homeClicked
 
     Column {
         anchors.fill: parent
         spacing: 10
         anchors.margins: 10
-
-        // Voorbeeldknop 1
         Button {
             text: 'Home'
-            icon.source: 'qrc:/assets/icon.png'
+            onClicked: sidebar.homeClicked()
         }
-        // Voorbeeldknop 2
         Button {
-            text: qsTr('Settings')
-            icon: IconType.settings
-            flat: true
+            text: 'Settings'
+            onClicked: sidebar.settingsClicked()
         }
-        // Voeg hier meer knoppen toe naar behoefte
     }
 }
