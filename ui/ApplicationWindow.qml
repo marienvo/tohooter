@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.15
 
 ApplicationWindow {
     visible: true
@@ -9,7 +8,6 @@ ApplicationWindow {
     minimumWidth: 400
     minimumHeight: 300
     color: '#f2f2f2'
-    Material.theme: Material.Light
 
     onClosing: {
         // todo: somehow make the app keep running in the background for showing notifications?

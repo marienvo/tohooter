@@ -1,10 +1,12 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Universal 2.15
 
 Item {
     anchors.fill: parent
     anchors.leftMargin: sidebar.width + 20
     anchors.margins: 20
+    Universal.theme: Universal.Light
     Column {
         spacing: 10
         anchors.top: parent.top

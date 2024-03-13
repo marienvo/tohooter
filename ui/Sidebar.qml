@@ -1,10 +1,12 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Universal 2.15
 
 Rectangle {
     width: 60
     height: parent.height
     color: '#333'
+    Universal.theme: Universal.Light
 
     signal settingsClicked
     signal homeClicked
