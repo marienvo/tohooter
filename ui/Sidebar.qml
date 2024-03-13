@@ -8,7 +8,7 @@ Rectangle {
     color: '#333'
     Universal.theme: Universal.Light
 
-    signal settingsClicked
+    signal ribbonIconClicked(string screen)
     signal homeClicked
 
     Column {
@@ -17,11 +17,11 @@ Rectangle {
         anchors.margins: 10
         Button {
             text: 'Home'
-            onClicked: sidebar.homeClicked()
+            onClicked: sidebar.ribbonIconClicked('Today')
         }
         Button {
             text: 'Settings'
-            onClicked: sidebar.settingsClicked()
+            onClicked: sidebar.ribbonIconClicked('Settings')
         }
     }
 }

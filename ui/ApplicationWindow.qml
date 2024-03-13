@@ -26,11 +26,8 @@ ApplicationWindow {
 
     Connections {
         target: sidebar
-        function onSettingsClicked() {
-            contentLoader.source = 'Settings.qml';
-        }
-        function onHomeClicked() {
-            contentLoader.source = 'Today.qml';
+        function onRibbonIconClicked(screen) {
+            contentLoader.source = screen + '.qml';
         }
     }
 }
