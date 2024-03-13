@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
 
 ApplicationWindow {
     visible: true
@@ -8,14 +9,43 @@ ApplicationWindow {
     minimumWidth: 400
     minimumHeight: 300
     color: '#f2f2f2'
+    Material.theme: Material.Light
 
     onClosing: {
         // todo: somehow make the app keep running in the background for showing notifications?
         console.log('Close button pressed, but window will not close.');
     }
 
+    // Ribbon of zijpaneel
+    Rectangle {
+        id: sidebar
+        width: 60 // Breedte van het zijpaneel
+        height: parent.height
+        color: '#333' // Achtergrondkleur van het zijpaneel
+
+        Column {
+            anchors.fill: parent
+            spacing: 10
+            anchors.margins: 10
+
+            // Voorbeeldknop 1
+            Button {
+                text: 'Home'
+                icon.source: 'qrc:/assets/icon.png'
+            }
+            // Voorbeeldknop 2
+            Button {
+                text: qsTr('Settings')
+                icon: IconType.settings
+                flat: true
+            }
+            // Voeg hier meer knoppen toe naar behoefte
+        }
+    }
+
     Item {
         anchors.fill: parent
+        anchors.leftMargin: sidebar.width + 20
         anchors.margins: 20
         Column {
             spacing: 10
@@ -89,7 +119,8 @@ ApplicationWindow {
                         width: 200
                         height: 200
                         color: 'lightblue'
-                        anchors.centerIn: parent
+                        anchors.top: parent.top
+                        anchors.topMargin: 300
                     }
 
                     Rectangle {
