@@ -16,8 +16,12 @@ Rectangle {
         spacing: 10
         anchors.margins: 10
         Button {
-            text: 'Home'
+            text: 'Today'
             onClicked: sidebar.ribbonIconClicked('Today')
+        }
+        Button {
+            text: 'Upcoming'
+            onClicked: sidebar.ribbonIconClicked('Upcoming')
         }
         Button {
             text: 'Settings'
