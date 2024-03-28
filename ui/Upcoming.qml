@@ -27,7 +27,6 @@ Rectangle {
 
             Rectangle {
                 id: area1
-                // width: parent.width * 0.2 - 20
                 width: mainArea.colWidth
                 x: 0
                 height: 200
