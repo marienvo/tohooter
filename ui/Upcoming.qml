@@ -54,22 +54,18 @@ Rectangle {
 
                     onPositionChanged: {
                         if (mouseArea.drag.active) {
-                            const deltaX =
-                                mouseArea.mouseX - mouseArea.width / 2;
-                            const deltaY =
-                                mouseArea.mouseY - mouseArea.height / 2;
                             card.x = Math.max(
                                 0,
                                 Math.min(
                                     mainArea.width - card.width,
-                                    card.startX + deltaX
+                                    card.startX
                                 )
                             );
                             card.y = Math.max(
                                 0,
                                 Math.min(
                                     mainArea.height - card.height,
-                                    card.startY + deltaY
+                                    card.startY
                                 )
                             );
                         }
@@ -84,16 +80,16 @@ Rectangle {
                         card.opacity = 1.0;
                         if (
                             scriptLogic.isMouseWithinTargetArea(
-                                card.x,
-                                card.y,
+                                card.x + mouseX,
+                                card.y + mouseY,
                                 area1
                             )
                         ) {
                             console.log('Dropped in target area 1');
                         } else if (
                             scriptLogic.isMouseWithinTargetArea(
-                                card.x,
-                                card.y,
+                                card.x + mouseX,
+                                card.y + mouseY,
                                 area2
                             )
                         ) {
