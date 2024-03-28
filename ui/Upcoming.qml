@@ -19,9 +19,17 @@ Rectangle {
             color: 'white'
             width: parent.width
 
+            property int numCols: 5
+            property int gapWidth: 20
+
+            property real colWidth: (parent.width - (numCols - 1) * gapWidth) /
+                numCols
+
             Rectangle {
                 id: area1
-                width: parent.width * 0.18
+                // width: parent.width * 0.2 - 20
+                width: mainArea.colWidth
+                x: 0
                 height: 200
                 color: 'lightblue'
                 anchors.top: parent.top
@@ -30,41 +38,41 @@ Rectangle {
 
             Rectangle {
                 id: area2
-                width: parent.width * 0.18
+                width: mainArea.colWidth
+                x: 1 * (mainArea.colWidth + mainArea.gapWidth)
                 height: 200
                 color: 'lightblue'
                 anchors.top: parent.top
-                x: parent.width * 0.2
                 anchors.topMargin: 300
             }
 
             Rectangle {
                 id: area3
-                width: parent.width * 0.18
+                width: mainArea.colWidth
+                x: 2 * (mainArea.colWidth + mainArea.gapWidth)
                 height: 200
                 color: 'lightblue'
                 anchors.top: parent.top
-                x: parent.width * 0.4
                 anchors.topMargin: 300
             }
 
             Rectangle {
                 id: area4
-                width: parent.width * 0.18
+                width: mainArea.colWidth
+                x: 3 * (mainArea.colWidth + mainArea.gapWidth)
                 height: 200
                 color: 'lightblue'
                 anchors.top: parent.top
-                x: parent.width * 0.6
                 anchors.topMargin: 300
             }
 
             Rectangle {
                 id: area5
-                width: parent.width * 0.18
+                width: mainArea.colWidth
+                x: 4 * (mainArea.colWidth + mainArea.gapWidth)
                 height: 200
                 color: 'lightblue'
                 anchors.top: parent.top
-                x: parent.width * 0.8
                 anchors.topMargin: 300
             }
 
