@@ -10,4 +10,14 @@ Rectangle {
     anchors.fill: parent
     anchors.leftMargin: sidebar.width + 20
     anchors.margins: 20
+    Text {
+        text: 'settings here'
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.topMargin: 10
+        anchors.leftMargin: 10
+        color: 'black'
+        font.family: 'Arial'
+        font.pixelSize: 20
+    }
 }
