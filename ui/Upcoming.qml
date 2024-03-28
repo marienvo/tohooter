@@ -39,6 +39,36 @@ Rectangle {
             }
 
             Rectangle {
+                id: area3
+                width: parent.width * 0.18
+                height: 200
+                color: 'lightblue'
+                anchors.top: parent.top
+                x: parent.width * 0.4
+                anchors.topMargin: 300
+            }
+
+            Rectangle {
+                id: area4
+                width: parent.width * 0.18
+                height: 200
+                color: 'lightblue'
+                anchors.top: parent.top
+                x: parent.width * 0.6
+                anchors.topMargin: 300
+            }
+
+            Rectangle {
+                id: area5
+                width: parent.width * 0.18
+                height: 200
+                color: 'lightblue'
+                anchors.top: parent.top
+                x: parent.width * 0.8
+                anchors.topMargin: 300
+            }
+
+            Rectangle {
                 id: card
                 width: 100
                 height: 100
@@ -78,23 +108,26 @@ Rectangle {
 
                     onReleased: {
                         card.opacity = 1.0;
-                        if (
-                            scriptLogic.isMouseWithinTargetArea(
-                                card.x + mouseX,
-                                card.y + mouseY,
-                                area1
-                            )
-                        ) {
-                            console.log('Dropped in target area 1');
-                        } else if (
-                            scriptLogic.isMouseWithinTargetArea(
-                                card.x + mouseX,
-                                card.y + mouseY,
-                                area2
-                            )
-                        ) {
-                            console.log('Dropped in target area 2');
-                        } else {
+                        var targetAreas = [area1, area2, area3, area4, area5];
+                        var droppedInTargetArea = false;
+
+                        for (var i = 0; i < targetAreas.length; i++) {
+                            if (
+                                scriptLogic.isMouseWithinTargetArea(
+                                    card.x + mouseX,
+                                    card.y + mouseY,
+                                    targetAreas[i]
+                                )
+                            ) {
+                                console.log(
+                                    'Dropped in target area ' + (i + 1)
+                                );
+                                droppedInTargetArea = true;
+                                break;
+                            }
+                        }
+
+                        if (!droppedInTargetArea) {
                             card.x = card.startPos.x;
                             card.y = card.startPos.y;
                         }
