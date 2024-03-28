@@ -22,8 +22,8 @@ ApplicationWindow {
         id: contentLoader
         anchors.fill: parent
         // source: 'Today.qml'
-        // source: 'Upcoming.qml' // kanban board
-        source: 'Settings.qml'
+        source: 'Upcoming.qml' // kanban board
+        // source: 'Settings.qml'
     }
 
     Connections {
