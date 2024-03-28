@@ -20,7 +20,7 @@ Rectangle {
             width: parent.width
 
             Rectangle {
-                id: targetArea1
+                id: area1
                 width: parent.width * 0.18
                 height: 200
                 color: 'lightblue'
@@ -29,7 +29,7 @@ Rectangle {
             }
 
             Rectangle {
-                id: targetArea2
+                id: area2
                 width: parent.width * 0.18
                 height: 200
                 color: 'lightblue'
@@ -39,7 +39,7 @@ Rectangle {
             }
 
             Rectangle {
-                id: draggable
+                id: card
                 width: 100
                 height: 100
                 color: 'red'
@@ -58,47 +58,49 @@ Rectangle {
                                 mouseArea.mouseX - mouseArea.width / 2;
                             const deltaY =
                                 mouseArea.mouseY - mouseArea.height / 2;
-                            draggable.x = Math.max(
+                            card.x = Math.max(
                                 0,
                                 Math.min(
-                                    mainArea.width - draggable.width,
-                                    draggable.startX + deltaX
+                                    mainArea.width - card.width,
+                                    card.startX + deltaX
                                 )
                             );
-                            draggable.y = Math.max(
+                            card.y = Math.max(
                                 0,
                                 Math.min(
-                                    mainArea.height - draggable.height,
-                                    draggable.startY + deltaY
+                                    mainArea.height - card.height,
+                                    card.startY + deltaY
                                 )
                             );
                         }
                     }
 
                     onPressed: {
-                        draggable.startPos = Qt.point(draggable.x, draggable.y);
-                        draggable.opacity = 0.5;
+                        card.startPos = Qt.point(card.x, card.y);
+                        card.opacity = 0.5;
                     }
 
                     onReleased: {
-                        draggable.opacity = 1.0;
+                        card.opacity = 1.0;
                         if (
-                            scriptLogic.isWithinTargetArea(
-                                draggable,
-                                targetArea1
+                            scriptLogic.isMouseWithinTargetArea(
+                                card.x,
+                                card.y,
+                                area1
                             )
                         ) {
                             console.log('Dropped in target area 1');
                         } else if (
-                            scriptLogic.isWithinTargetArea(
-                                draggable,
-                                targetArea2
+                            scriptLogic.isMouseWithinTargetArea(
+                                card.x,
+                                card.y,
+                                area2
                             )
                         ) {
                             console.log('Dropped in target area 2');
                         } else {
-                            draggable.x = draggable.startPos.x;
-                            draggable.y = draggable.startPos.y;
+                            card.x = card.startPos.x;
+                            card.y = card.startPos.y;
                         }
                     }
                 }
@@ -108,14 +110,12 @@ Rectangle {
     QtObject {
         id: scriptLogic
 
-        function isWithinTargetArea(draggable, targetArea) {
+        function isMouseWithinTargetArea(mouseX, mouseY, targetArea) {
             return (
-                draggable.x >= targetArea.x &&
-                draggable.x + draggable.width <=
-                    targetArea.x + targetArea.width &&
-                draggable.y >= targetArea.y &&
-                draggable.y + draggable.height <=
-                    targetArea.y + targetArea.height
+                mouseX >= targetArea.x &&
+                mouseX <= targetArea.x + targetArea.width &&
+                mouseY >= targetArea.y &&
+                mouseY <= targetArea.y + targetArea.height
             );
         }
     }
