@@ -54,8 +54,9 @@ Rectangle {
 
                     onPositionChanged: {
                         if (mouseArea.drag.active) {
-                            var deltaX = mouseArea.mouseX - mouseArea.width / 2;
-                            var deltaY =
+                            const deltaX =
+                                mouseArea.mouseX - mouseArea.width / 2;
+                            const deltaY =
                                 mouseArea.mouseY - mouseArea.height / 2;
                             draggable.x = Math.max(
                                 0,
@@ -82,21 +83,17 @@ Rectangle {
                     onReleased: {
                         draggable.opacity = 1.0;
                         if (
-                            draggable.x >= targetArea1.x &&
-                            draggable.x + draggable.width <=
-                                targetArea1.x + targetArea1.width &&
-                            draggable.y >= targetArea1.y &&
-                            draggable.y + draggable.height <=
-                                targetArea1.y + targetArea1.height
+                            scriptLogic.isWithinTargetArea(
+                                draggable,
+                                targetArea1
+                            )
                         ) {
                             console.log('Dropped in target area 1');
                         } else if (
-                            draggable.x >= targetArea2.x &&
-                            draggable.x + draggable.width <=
-                                targetArea2.x + targetArea2.width &&
-                            draggable.y >= targetArea2.y &&
-                            draggable.y + draggable.height <=
-                                targetArea2.y + targetArea2.height
+                            scriptLogic.isWithinTargetArea(
+                                draggable,
+                                targetArea2
+                            )
                         ) {
                             console.log('Dropped in target area 2');
                         } else {
@@ -106,6 +103,20 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
+    QtObject {
+        id: scriptLogic
+
+        function isWithinTargetArea(draggable, targetArea) {
+            return (
+                draggable.x >= targetArea.x &&
+                draggable.x + draggable.width <=
+                    targetArea.x + targetArea.width &&
+                draggable.y >= targetArea.y &&
+                draggable.y + draggable.height <=
+                    targetArea.y + targetArea.height
+            );
         }
     }
 }
