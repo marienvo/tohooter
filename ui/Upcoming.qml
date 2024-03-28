@@ -33,6 +33,27 @@ Rectangle {
                 color: 'lightblue'
                 anchors.top: parent.top
                 anchors.topMargin: 300
+
+                // Todo: drop red card on top, between or below card A and B:
+                Rectangle {
+                    id: testCardA
+                    width: mainArea.colWidth
+                    x: 0
+                    height: 50
+                    color: 'white'
+                    anchors.top: parent.top
+                    anchors.topMargin: 20
+                }
+
+                Rectangle {
+                    id: testCardB
+                    width: mainArea.colWidth
+                    x: 0
+                    height: 50
+                    color: 'white'
+                    anchors.top: parent.top
+                    anchors.topMargin: 90
+                }
             }
 
             Rectangle {
